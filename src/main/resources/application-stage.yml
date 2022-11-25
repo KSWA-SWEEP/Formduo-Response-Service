@@ -1,0 +1,78 @@
+spring:
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+
+  datasource:
+    driver-class-name: ${DB_DRIVER:com.mysql.cj.jdbc.Driver}
+    url: ${DB_URL:jdbc:mysql://210.109.60.247:10006/sweep?zeroDateTimeBehavior=convertToNull&useUnicode=yes&characterEncoding=UTF-8&connectTimeout=2000&autoReconnect=true&serverTimezone=Asia/Seoul&useSSL=false}
+    username: ${DB_USERNAME:sweep}
+    password: ${DB_PASSWORD:12341234}
+
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    #    hibernate:
+    #      ddl-auto: update
+    show-sql: true
+
+  redis:
+    host: ${REDIS_HOST:redis}
+    port: ${REDIS_PORT:6379}
+
+  zipkin:
+    base-url: ${ZIPKIN_URL:http://zipkin:9411}/
+
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    groups-order: DESC
+    operationSorter: method
+    disable-swagger-default-url: true
+    display-request-duration: true
+  api-docs:
+    path: /api-docs
+  show-actuator: true
+  default-consumes-media-type: application/json
+  packages-to-scan: com.sweep.responseservice
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: false
+      percentiles:
+        http:
+          server:
+            requests: 0.5, 0.9, 0.95, 0.99, 0.999
+    tags:
+      application: ${spring.application.name}
+
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: ${DISCOVER_URL:http://service-discovery:8761}/eureka/
+
+ribbon:
+  eureka:
+    enabled: true
+
+
+jwt:
+  header: Authorization
+  secret: formduoinsweepformduoinsweepformduoinsweepformduoinsweepformduoinsweepformduoinsweepformduoinsweepformduoinsweepformduoinsweepformduoinsweep
+  access-token-expire-time: 1800000
+  refresh-token-expire-time: 6048000
