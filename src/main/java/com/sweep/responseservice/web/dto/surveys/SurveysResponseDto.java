@@ -1,6 +1,6 @@
 package com.sweep.responseservice.web.dto.surveys;
 
-import com.sweep.responseservice.domain.surveys.Surveys;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +13,7 @@ import java.util.Map;
  * A DTO for the {@link Surveys} entity
  */
 @Getter
+@Data
 @NoArgsConstructor
 public class SurveysResponseDto  {
 
@@ -34,23 +35,24 @@ public class SurveysResponseDto  {
 
     // 클라이언트가 요청했을 때 보여질 애들을 정합시다~.
 
-    public SurveysResponseDto(Surveys entity){
-//        System.out.println(entity.getSvyContent());
-        this.id = entity.getId();
-        this.regUser = entity.getEmail();
-        this.svySt = entity.getSvySt();
-        this.svyTitle = entity.getSvyTitle();
-        this.svyIntro = entity.getSvyIntro();
-        this.svyContent = entity.getSvyContent();
-        this.delYn = entity.getDelYn();
-        this.svyEndMsg = entity.getSvyEndMsg();
-        this.svyStartDt = entity.getSvyStartDt();
-        this.svyEndDt = entity.getSvyEndDt();
-        this.svyRespMax = entity.getSvyRespMax();
-        this.svyRespCount = entity.getSvyRespCount();
-        this.svyRegDt = entity.getRegDt();
-        this.svyType = entity.getSvyType();
+    public SurveysResponseDto(String svySt, String svyTitle,
+                              String svyIntro, List<Map<String, Object>> svyContent, char delYn,
+                              String svyEndMsg, int svyRespCount, int svyRespMax,
+                              Instant svyRegDt, Instant svyEndDt, Instant svyStartDt, String svyType){
+        this.svySt = svySt;
+        this.svyTitle = svyTitle;
+        this.svyIntro = svyIntro;
+        this.svyContent = svyContent;
+        this.delYn = delYn;
+        this.svyEndMsg = svyEndMsg;
+        this.svyStartDt = svyStartDt;
+        this.svyEndDt = svyEndDt;
+        this.svyType = svyType;
+        this.svyRespMax = svyRespMax;
+        this.svyRespCount = svyRespCount;
+        this.svyRegDt = svyRegDt;
     }
+
 
 
 //    public Surveys toEntity() {

@@ -27,11 +27,11 @@ public class SurveyRespsResponseDto {
 
     public SurveyRespsResponseDto(SurveyResps entity){
         this.id = entity.getId();
-        this.svyId = entity.getSurvey().getId();
-        this.svyRespsCount = entity.getSurvey().getSvyRespCount();
-        this.svyRespsMax = entity.getSurvey().getSvyRespMax();
+//        this.svyId = entity.getSurvey().getId();
+//        this.svyRespsCount = entity.getSurvey().getSvyRespCount();
+//        this.svyRespsMax = entity.getSurvey().getSvyRespMax();
         this.svyRespDt = entity.getSvyRespDt();
         this.svyRespContent = entity.getSvyRespContent();
-        this.svyType = entity.getSurvey().getSvyType();
+//        this.svyType = entity.getSurvey().getSvyType();
     }
 }

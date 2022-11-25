@@ -1,7 +1,6 @@
 package com.sweep.responseservice.web.dto.survey_resps;
 
 import com.sweep.responseservice.domain.survey_resps.SurveyResps;
-import com.sweep.responseservice.domain.surveys.Surveys;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,9 +26,8 @@ public class SurveyRespsRequestDto{
         this.svyRespContent = svyRespContent;
     }
 
-    public SurveyResps toEntity(Surveys survey) {
+    public SurveyResps toEntity() {
         return SurveyResps.builder()
-                .survey(survey)
                 .svyRespDt(Instant.now())
                 .svyRespContent(svyRespContent)
                 .build();

@@ -1,6 +1,5 @@
 package com.sweep.responseservice.domain.survey_resps;
 
-import com.sweep.responseservice.domain.surveys.Surveys;
 import com.vladmihalcea.hibernate.type.json.JsonType;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,9 +24,8 @@ public class SurveyResps {
     @Column(name = "SVY_RESP_ID", nullable = false)
     private Integer id;
 
-    @ManyToOne(targetEntity = Surveys.class)
-    @JoinColumn(name = "SVY_ID")
-    private Surveys survey;
+    @Column(name = "SVY_ID")
+    private Integer svyId;
 
     @Column(name = "SVY_RESP_DT")
     private Instant svyRespDt;
@@ -37,12 +35,12 @@ public class SurveyResps {
     private List<Map<String, Object>> svyRespContent;
 
     @Builder
-    public SurveyResps(Surveys survey, Instant svyRespDt,
+    public SurveyResps(Instant svyRespDt, Integer svyId,
                        List<Map<String, Object>> svyRespContent)
     {
-        this.survey = survey;
         this.svyRespDt = svyRespDt;
         this.svyRespContent = svyRespContent;
+        this.svyId = svyId;
     }
 
 
