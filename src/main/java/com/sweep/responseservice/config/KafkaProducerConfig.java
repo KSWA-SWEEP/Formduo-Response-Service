@@ -2,6 +2,7 @@ package com.sweep.responseservice.config;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
@@ -15,10 +16,16 @@ import java.util.Map;
 @EnableKafka
 @Configuration
 public class KafkaProducerConfig {
+
+    @Value("${kafka.host}")
+    String kafka_host;
+
+    @Value("${kafka.port}")
+    String kafka_port;
     @Bean
     public ProducerFactory<String, String> producerFactory() { //접속하고자 하는 정보 topic
         Map<String, Object> properties = new HashMap<>();
-        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "kafka:29092");
+        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafka_host+":"+kafka_port);
         properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
 
