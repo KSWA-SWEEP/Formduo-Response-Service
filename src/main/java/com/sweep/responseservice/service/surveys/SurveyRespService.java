@@ -30,6 +30,10 @@ public class SurveyRespService {
         SurveysResponseDto surveys = surveysRepository.findById(requestDto.getSvyId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 설문이 없습니다. id = "+requestDto.getSvyId()));
 
+        if(surveys.getDelYn().equals('Y'))
+        {
+            throw new IllegalArgumentException("삭제된 설문입니다.");
+        }
         if(surveys.getSvyEndDt().isBefore(Instant.now()))
         {
             throw new IllegalArgumentException("설문 기간이 지났습니다.");
@@ -43,7 +47,7 @@ public class SurveyRespService {
         kafkaProducer.send("survey-response-topic", requestDto);
 //            surveys.countUp(surveys.getSvyRespCount()+1);
 
-        return surveyRespsRepository.save(requestDto.toEntity()).getId();
+        return surveyRespsRepository.save(requestDto.toEntity(surveys.getId())).getId();
         // 기간이 지났는지 확인
     }
 

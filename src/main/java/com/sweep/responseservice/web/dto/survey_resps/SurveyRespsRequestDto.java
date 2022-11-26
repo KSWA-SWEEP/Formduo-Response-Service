@@ -26,8 +26,9 @@ public class SurveyRespsRequestDto{
         this.svyRespContent = svyRespContent;
     }
 
-    public SurveyResps toEntity() {
+    public SurveyResps toEntity(int svyId) {
         return SurveyResps.builder()
+                .svyId(svyId)
                 .svyRespDt(Instant.now())
                 .svyRespContent(svyRespContent)
                 .build();

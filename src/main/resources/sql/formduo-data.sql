@@ -42,7 +42,7 @@ CREATE TABLE `tb_svy_resp` (
                                `svy_resp_dt` datetime DEFAULT NULL,
                                `svy_id` int(11) DEFAULT NULL,
                                PRIMARY KEY (`svy_resp_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2995 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 SET foreign_key_checks = 1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
