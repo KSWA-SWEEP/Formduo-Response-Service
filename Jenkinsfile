@@ -23,7 +23,6 @@ pipeline {
             }
         }
       
-      
         stage('Checkout Application Git Branch') {
             steps {
                 git credentialsId: "${gitCredentialId}",
@@ -32,7 +31,7 @@ pipeline {
             }
             post {
                     failure {
-                      slackSend (channel: '#jenkins', color: '#FF0000', message: "Repository Clone Failure: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+                      slackSend (channel: '#jenkins', color: '#FF0000', message: "Repository Clone Failure !: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
                       echo 'Repository clone failure !'
                     }
                     success {
@@ -47,6 +46,7 @@ pipeline {
                 }
                 post {
                         failure {
+                          slackSend (channel: '#jenkins', color: '#FF0000', message: "Maven jar build Failure !: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
                           echo 'Maven jar build failure !'
                         }
                         success {
@@ -62,6 +62,7 @@ pipeline {
                 }
                 post {
                         failure {
+                          slackSend (channel: '#jenkins', color: '#FF0000', message: "Docker image build Failure !: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
                           echo 'Docker image build failure !'
                         }
                         success {
@@ -81,6 +82,7 @@ pipeline {
                 }
                 post {
                         failure {
+                          slackSend (channel: '#jenkins', color: '#FF0000', message: "Docker image push Failure !: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
                           echo 'Docker Image Push failure !'
                           sh "docker rmi ${dockerHubRegistry}:${currentBuild.number}"
                           sh "docker rmi ${dockerHubRegistry}:latest"
@@ -111,12 +113,20 @@ pipeline {
                 }
                 post {
                         failure {
+                          slackSend (channel: '#jenkins', color: '#FF0000', message: "K8S Manifest Update Failure !: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
                           echo 'K8S Manifest Update failure !'
                         }
                         success {
                           echo 'K8S Manifest Update success !'
                         }
                 }
+        }
+      
+        stage('End') {
+            agent any
+            steps {
+                slackSend (channel: '#jenkins', color: '#4B89DC', message: "Build Suceessful!: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+            }
         }
     }
 }
