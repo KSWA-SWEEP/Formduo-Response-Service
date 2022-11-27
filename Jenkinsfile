@@ -32,6 +32,7 @@ pipeline {
             }
             post {
                     failure {
+                      slackSend (channel: '#jenkins', color: '#FF0000', message: "Repository Clone Failure: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
                       echo 'Repository clone failure !'
                     }
                     success {
