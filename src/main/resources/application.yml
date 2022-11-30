@@ -17,6 +17,17 @@ spring:
     port: 5672
     username: sweep
     password: sweep
+  kafka:
+    consumer:
+      bootstrap-servers: kafka-service:29092, kafka-service-1:29093, kafka-service-2:29094
+      group-id: response
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      bootstrap-servers: kafka-service:29092, kafka-service-1:29093, kafka-service-2:29094
+      key-serializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-serializer: org.apache.kafka.common.serialization.StringDeserializer
 
 management:
   endpoints:
