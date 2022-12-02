@@ -14,8 +14,8 @@ import java.util.Map;
 @Getter
 @NoArgsConstructor
 public class SurveyRespsResponseDto {
-    private Integer id;
-    private Integer svyId;
+    private String id;
+    private String svyId;
     private Integer svyRespsCount;
 
     private Integer svyRespsMax;
@@ -27,6 +27,7 @@ public class SurveyRespsResponseDto {
 
     public SurveyRespsResponseDto(SurveyResps entity){
         this.id = entity.getId();
+        this.svyId = entity.getSvyId();
 //        this.svyId = entity.getSurvey().getId();
 //        this.svyRespsCount = entity.getSurvey().getSvyRespCount();
 //        this.svyRespsMax = entity.getSurvey().getSvyRespMax();

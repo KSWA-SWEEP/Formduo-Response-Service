@@ -26,19 +26,19 @@ public class SurveyRespApiController {
 
     @Operation(summary = "설문 응답 생성 요청", description = "설문에 대한 응답이 생성됩니다.")
     @PostMapping("/create")
-    public int save(@RequestBody SurveyRespsRequestDto requestDto) {
+    public String save(@RequestBody SurveyRespsRequestDto requestDto) {
         return surveyRespService.save(requestDto);
     }
 
     @Operation(summary = "설문 응답 조회 요청", description = "설문이 대한 특정 응답이 조회됩니다.")
     @GetMapping("/response/{id}")
-    public SurveyRespsResponseDto findSurveyRespById (@PathVariable Integer id) {
+    public SurveyRespsResponseDto findSurveyRespById (@PathVariable String id) {
         return surveyRespService.findById(id);
     }
 
     @Operation(summary = "설문 전체 응답 요청!!", description = "설문에 대한 전체응답정보를 요청합니다.")
     @GetMapping("/response/all/{svyId}")
-    public List<SurveyRespsResponseDto> findAllRepsById (@PathVariable Integer svyId) {
+    public List<SurveyRespsResponseDto> findAllRepsById (@PathVariable String svyId) {
         return surveyRespService.findAll(svyId);
     }
 

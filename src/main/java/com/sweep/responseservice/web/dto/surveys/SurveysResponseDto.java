@@ -17,7 +17,7 @@ import java.util.Map;
 @NoArgsConstructor
 public class SurveysResponseDto  {
 
-    private  Integer id;
+    private  String id;
     private  String regUser;
     private  String svySt;
     private  String svyTitle;

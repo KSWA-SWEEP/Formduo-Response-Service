@@ -25,7 +25,7 @@ public class SurveyRespService {
     private final KafkaProducer kafkaProducer;
 
     @Transactional
-    public Integer save(SurveyRespsRequestDto requestDto) {
+    public String save(SurveyRespsRequestDto requestDto) {
         // 설문이 있는지 없는지 확인
         SurveysResponseDto surveys = surveysRepository.findById(requestDto.getSvyId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 설문이 없습니다. id = "+requestDto.getSvyId()));
@@ -52,14 +52,14 @@ public class SurveyRespService {
     }
 
     @Transactional(readOnly = true)
-    public SurveyRespsResponseDto findById(int id){
+    public SurveyRespsResponseDto findById(String id){
         SurveyResps entity = surveyRespsRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 응답이 없습니다. id ="+ id));
         return new SurveyRespsResponseDto(entity);}
 
 
     @Transactional(readOnly = true)
-    public List<SurveyRespsResponseDto> findAll(int svyId) {
+    public List<SurveyRespsResponseDto> findAll(String svyId) {
         List<SurveyResps> list = surveyRespsRepository.findAllBySvyId(svyId);
         return list.stream().map(SurveyRespsResponseDto::new).collect(Collectors.toList());
     }

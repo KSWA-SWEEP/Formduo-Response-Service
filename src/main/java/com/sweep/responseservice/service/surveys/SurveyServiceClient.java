@@ -14,5 +14,5 @@ import java.util.Optional;
 public interface SurveyServiceClient {
 
     @GetMapping(value = "/api/v1/surveys/{id}")
-    Optional<SurveysResponseDto> findById(@PathVariable Integer id);
+    Optional<SurveysResponseDto> findById(@PathVariable String id);
 }

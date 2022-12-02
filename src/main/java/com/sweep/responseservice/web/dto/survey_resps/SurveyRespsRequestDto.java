@@ -18,15 +18,15 @@ import java.util.Map;
 public class SurveyRespsRequestDto{
 
     @Schema(description = "설문 아이디", defaultValue = "1")
-    private Integer svyId;
+    private String svyId;
     private List<Map<String, Object>> svyRespContent;
 
     @Builder
-    public SurveyRespsRequestDto(int svyId, Instant svyRespDt, List<Map<String, Object>> svyRespContent){
+    public SurveyRespsRequestDto(String svyId, Instant svyRespDt, List<Map<String, Object>> svyRespContent){
         this.svyRespContent = svyRespContent;
     }
 
-    public SurveyResps toEntity(int svyId) {
+    public SurveyResps toEntity(String svyId) {
         return SurveyResps.builder()
                 .svyId(svyId)
                 .svyRespDt(Instant.now())
