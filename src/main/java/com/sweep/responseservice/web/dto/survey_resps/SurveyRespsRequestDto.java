@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +30,7 @@ public class SurveyRespsRequestDto{
     public SurveyResps toEntity(String svyId) {
         return SurveyResps.builder()
                 .svyId(svyId)
-                .svyRespDt(Instant.now())
+                .svyRespDt(Instant.now().plus(9, ChronoUnit.HOURS))
                 .svyRespContent(svyRespContent)
                 .build();
     }
