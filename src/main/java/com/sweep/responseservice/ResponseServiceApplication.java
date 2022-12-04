@@ -1,5 +1,6 @@
 package com.sweep.responseservice;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -16,13 +17,12 @@ import java.util.TimeZone;
 @EnableDiscoveryClient
 @EnableFeignClients
 @EnableMongoRepositories(basePackages = "com.sweep.responseservice.domain")
+@Slf4j
 public class ResponseServiceApplication {
 
     @PostConstruct
     public void started() {
-        System.out.println("현재시각 : " + new Date());
-        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Seoul"));
-        System.out.println("현재시각 : " + new Date());
+        log.info("Server On : " + new Date());
     }
     public static void main(String[] args) {
         SpringApplication.run(ResponseServiceApplication.class, args);
