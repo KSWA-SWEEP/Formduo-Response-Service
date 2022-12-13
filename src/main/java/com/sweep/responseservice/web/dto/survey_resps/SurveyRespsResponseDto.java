@@ -1,6 +1,7 @@
 package com.sweep.responseservice.web.dto.survey_resps;
 
 import com.sweep.responseservice.domain.survey_resps.SurveyResps;
+import com.sweep.responseservice.web.dto.surveys.SurveysResponseDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -28,11 +29,17 @@ public class SurveyRespsResponseDto {
     public SurveyRespsResponseDto(SurveyResps entity){
         this.id = entity.getId();
         this.svyId = entity.getSvyId();
-//        this.svyId = entity.getSurvey().getId();
-//        this.svyRespsCount = entity.getSurvey().getSvyRespCount();
-//        this.svyRespsMax = entity.getSurvey().getSvyRespMax();
+
+//        this.svyRespsCount = surveys.getSvyRespCount();
+//        this.svyRespsMax = surveys.getSvyRespMax();
         this.svyRespDt = entity.getSvyRespDt();
         this.svyRespContent = entity.getSvyRespContent();
-//        this.svyType = entity.getSurvey().getSvyType();
+//        this.svyType = surveys.getSvyType();
+    }
+
+    public void SurveyContentsUpdate(SurveysResponseDto entity){
+        this.svyRespsCount = entity.getSvyRespCount();
+        this.svyRespsMax = entity.getSvyRespMax();
+        this.svyType = entity.getSvyType();
     }
 }

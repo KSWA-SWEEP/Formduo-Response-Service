@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,7 +47,6 @@ public class SurveyRespService {
         //kafka send
         kafkaProducer.send("survey-response-topic", requestDto);
 //            surveys.countUp(surveys.getSvyRespCount()+1);
-
         return surveyRespsRepository.save(requestDto.toEntity(surveys.getId())).getId();
         // 기간이 지났는지 확인
     }
@@ -55,12 +55,34 @@ public class SurveyRespService {
     public SurveyRespsResponseDto findById(String id){
         SurveyResps entity = surveyRespsRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 응답이 없습니다. id ="+ id));
-        return new SurveyRespsResponseDto(entity);}
+
+        SurveysResponseDto surveys = surveysRepository.findById(entity.getSvyId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 설문이 없습니다. id = "+entity.getSvyId()));
+
+        SurveyRespsResponseDto result = new SurveyRespsResponseDto(entity);
+        result.SurveyContentsUpdate(surveys);
+
+        return result;}
 
 
     @Transactional(readOnly = true)
     public List<SurveyRespsResponseDto> findAll(String svyId) {
         List<SurveyResps> list = surveyRespsRepository.findAllBySvyId(svyId);
-        return list.stream().map(SurveyRespsResponseDto::new).collect(Collectors.toList());
+        List<SurveyRespsResponseDto> result = new ArrayList<>();
+
+        SurveysResponseDto surveys = surveysRepository.findById(svyId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 설문이 없습니다. id = "+svyId));
+
+        for (SurveyResps r : list){
+            SurveyRespsResponseDto tmp = new SurveyRespsResponseDto(r);
+            tmp.SurveyContentsUpdate(surveys);
+            result.add(tmp);
+        }
+
+        return result;
+//        return list.stream()
+//                .map( r -> new SurveyRespsResponseDto(r))
+//                .
+//                .collect(Collectors.toList());
     }
 }
